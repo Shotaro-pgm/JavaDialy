@@ -8,12 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.User;
+import model.Contribution;
 
-public class UserDAO {
-	private String id;
-	private String password;
-	
+public class ListDAO {
 	// DB接続に使用する情報
 	private String DATABASE_NAME = "dialy";
 	private String PROPATIES = "?characterEncoding=UTF-8&useSSL=false";
@@ -21,18 +18,8 @@ public class UserDAO {
 	private String USER = "root";
 	private String PASSWORD = "password";
 	
-	// ユーザー情報の照合に使用するSQL
-	// private String SQL = "select * from user where id = \"test@test.com\" and password = \"password\";";
-	// private String SQL = "select * from user where id = \"" + this.id + "\" and password = \"" + this.password + "\";";
-	
-	public UserDAO() {}
-	public UserDAO(String id, String password) {
-		this.id = id;
-		this.password = password;
-	}
-	
-	public List<User> execute(String paramId, String paramPassword){
-		List<User> userList = new ArrayList();
+	public List<Contribution> execute(String id){
+		List<Contribution> contributionList = new ArrayList();
 		
 		try {
 			// MySQLに接続する
@@ -41,8 +28,7 @@ public class UserDAO {
 			Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			
 			// クエリを渡す
-			String sql = "select * from user where id = \"" + paramId + "\" and password = \"" + paramPassword + "\";";
-			System.out.println(sql);
+			String sql = "select id, title, createdDatetime from dialy where userId =\"" + id + "\";";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// クエリを実行して結果を取得する
@@ -50,17 +36,25 @@ public class UserDAO {
 			
 			// 取得した結果を格納する
 			while(rs.next()) {
-				String id = rs.getString("id");
-				String name = rs.getString("name");
-				String password = rs.getString("password");
-				User user = new User(id, name, password);
-				userList.add(user);
+				String contrId = rs.getString("id");
+				String title = rs.getString("title");
+				String createdDatetime = rs.getString("createdDatetime");
+				Contribution contribution = new Contribution(contrId, title, createdDatetime);
+				contributionList.add(contribution);
+				
+				// 確認用
+				System.out.println(contrId);
+				System.out.println(title);
+				System.out.println(createdDatetime);
+				for(Contribution c : contributionList) {
+					System.out.println(c.getTitle());
+				}
 			}
 		} catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
-		return userList;
+		return contributionList;
 	}
-	
+
 }

@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,8 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import bean.User;
 import model.LoginLogic;
-import model.User;
 
 @WebServlet("/login")
 public class Login extends HttpServlet {
@@ -26,12 +27,18 @@ public class Login extends HttpServlet {
 		LoginLogic loginLogic = new LoginLogic(id, password);
 		User user = loginLogic.execute();
 		
+		System.out.println("ログイン処理は完了");
 		// 画面遷移
 		if(user.getId() != null && user.getPassword() != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
 			
-			response.sendRedirect("home.jsp");
+			//  確認用
+			User loginUser = (User)session.getAttribute("user");
+			System.out.println(loginUser.getId());
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/list");
+			dispatcher.forward(request, response);
 		}
 	}
 

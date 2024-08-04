@@ -7,13 +7,30 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+import bean.User;
+import model.Contribution;
+import model.ListLogic;
 
 @WebServlet("/list")
 public class List extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	protected void doGet(HttpServletRequest request,
+	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException{
-		System.out.println("一覧コントローラ到達成功");
+		System.out.println("ログイン処理は完了");
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		
+		// 投稿取得のロジックを呼び出す
+		ListLogic listLogic = new ListLogic();
+		java.util.List<Contribution> contributionList = listLogic.execute(user);
+		// contributionList = listLogic.execute(user);
+		
+		session.setAttribute("contributionList", contributionList);
+		
+		// ホーム画面にリダイレクト
+		response.sendRedirect("home.jsp");
 	}
 }

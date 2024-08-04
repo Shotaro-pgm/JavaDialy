@@ -1,5 +1,6 @@
 package model;
 
+import bean.Dialy;
 import dao.InsertDialyDAO;
 
 public class InsertLogic {

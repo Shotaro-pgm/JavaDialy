@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,9 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import model.Dialy;
+import bean.Dialy;
+import bean.User;
 import model.InsertLogic;
-import model.User;
 
 @WebServlet("/insert")
 public class Insert extends HttpServlet {
@@ -48,7 +49,10 @@ public class Insert extends HttpServlet {
 		// 個別記事に遷移する
 		// 詳細表示画面作成後は投稿した記事に飛ばすようにする
 		// home.jspは仮置き
-		response.sendRedirect("home.jsp");
+		// response.sendRedirect("/list");
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/list");
+		dispatcher.forward(request, response);
 		
 	}
 

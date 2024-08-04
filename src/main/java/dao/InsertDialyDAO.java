@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import model.Dialy;
+import bean.Dialy;
 
 public class InsertDialyDAO {
 	// DB接続に使用する情報
