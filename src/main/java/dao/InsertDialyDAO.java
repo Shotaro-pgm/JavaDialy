@@ -29,6 +29,9 @@ public class InsertDialyDAO {
 			
 			// クエリを実行する
 			num = pStmt.executeUpdate();
+			
+			// MySQLとの接続を切断する
+			conn.close();
 		} catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}

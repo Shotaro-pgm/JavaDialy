@@ -21,10 +21,6 @@ public class UserDAO {
 	private String USER = "root";
 	private String PASSWORD = "password";
 	
-	// ユーザー情報の照合に使用するSQL
-	// private String SQL = "select * from user where id = \"test@test.com\" and password = \"password\";";
-	// private String SQL = "select * from user where id = \"" + this.id + "\" and password = \"" + this.password + "\";";
-	
 	public UserDAO() {}
 	public UserDAO(String id, String password) {
 		this.id = id;
@@ -48,6 +44,11 @@ public class UserDAO {
 			// クエリを実行して結果を取得する
 			ResultSet rs = pStmt.executeQuery();
 			
+			/*
+			// MySQLとの接続を切断する
+			conn.close();
+			*/
+			
 			// 取得した結果を格納する
 			while(rs.next()) {
 				String id = rs.getString("id");
@@ -56,6 +57,9 @@ public class UserDAO {
 				User user = new User(id, name, password);
 				userList.add(user);
 			}
+			
+			// MySQLとの接続を切断する
+			conn.close();
 		} catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}

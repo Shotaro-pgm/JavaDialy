@@ -35,9 +35,6 @@ public class Insert extends HttpServlet {
 		User loginUser = (User)session.getAttribute("user");
 		String userId = loginUser.getId();
 		
-		// 確認用
-		System.out.println(userId);
-		
 		// JavaBeanに格納する
 		Dialy dialy = new Dialy(title, text, userId);
 		
@@ -48,9 +45,6 @@ public class Insert extends HttpServlet {
 		
 		// 個別記事に遷移する
 		// 詳細表示画面作成後は投稿した記事に飛ばすようにする
-		// home.jspは仮置き
-		// response.sendRedirect("/list");
-		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/list");
 		dispatcher.forward(request, response);
 		

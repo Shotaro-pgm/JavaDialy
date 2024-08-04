@@ -35,7 +35,5 @@ public class Dialy {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
-	
 
 }

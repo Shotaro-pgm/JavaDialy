@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 
+import bean.Contribution;
 import bean.User;
 import dao.ListDAO;
 

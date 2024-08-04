@@ -33,10 +33,6 @@ public class Login extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
 			
-			//  確認用
-			User loginUser = (User)session.getAttribute("user");
-			System.out.println(loginUser.getId());
-			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/list");
 			dispatcher.forward(request, response);
 		}
