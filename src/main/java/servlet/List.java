@@ -32,4 +32,19 @@ public class List extends HttpServlet {
 		// ホーム画面にリダイレクト
 		response.sendRedirect("home.jsp");
 	}
+	
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException{
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		
+		// 投稿取得のロジックを呼び出す
+		ListLogic listLogic = new ListLogic();
+		java.util.List<Contribution> contributionList = listLogic.execute(user);
+		
+		session.setAttribute("contributionList", contributionList);
+		
+		// ホーム画面にリダイレクト
+		response.sendRedirect("home.jsp");
+	}
 }

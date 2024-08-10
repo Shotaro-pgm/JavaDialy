@@ -26,9 +26,9 @@ public class DetailDAO {
 			Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			
 			// クエリを渡す
-			String sql = "select id, title, text, createdDatetime, updateDatetime from dialy where id = \"" + id + "\";";
+			String sql = "select id, title, text, userId, createdDatetime, updateDatetime from dialy where id = \"" + id + "\";";
 			// 確認用
-			System.out.print(sql);
+			System.out.println(sql);
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// クエリを実行して結果を取得する
@@ -39,12 +39,14 @@ public class DetailDAO {
 				String contId = rs.getString("id");
 				String title = rs.getString("title");
 				String text = rs.getString("text");
+				String userId = rs.getString("userId");
 				String createdDatetime = rs.getString("createdDatetime");
 				String updateDatetime = rs.getString("updateDatetime");
 				
-				contribution.setUserId(contId);
+				contribution.setId(contId);
 				contribution.setTitle(title);
 				contribution.setText(text);
+				contribution.setUserId(userId);
 				contribution.setCreatedDatetime(createdDatetime);
 				contribution.setUpdateDatetime(updateDatetime);
 				

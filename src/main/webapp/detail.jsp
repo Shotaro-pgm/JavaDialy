@@ -11,6 +11,8 @@ Contribution contribution = (Contribution)session.getAttribute("contribution");
 <title>日記</title>
 </head>
 <body>
+<a href="list">一覧へ</a><br>
+<a href="update.jsp">編集</a>
 <h1><%= contribution.getTitle() %></h1><br>
 <p><%= contribution.getCreatedDatetime() %></p>
 <p><%= contribution.getText() %></p>

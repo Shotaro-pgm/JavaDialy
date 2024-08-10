@@ -26,12 +26,35 @@ public class Detail extends HttpServlet {
 		Contribution contribution = new Contribution();
 		contribution = dl.execute(id);
 		
+		// 確認用
+		System.out.println(contribution.getId());
+		
 		// 取得した情報をセッションスコープに保存する
 		HttpSession session = request.getSession();
 		session.setAttribute("contribution", contribution);
 		
 		response.sendRedirect("detail.jsp");
 		
+	}
+	
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException{
+		// 投稿のIDを取得する
+		HttpSession session = request.getSession();
+		Contribution contribution = (Contribution)session.getAttribute("contribution");
+		String id = contribution.getId();
+		
+		// 確認用
+		System.out.println(id);
+		
+		// 投稿詳細取得のロジッククラスを呼び出す
+		DetailLogic dl = new DetailLogic();
+		contribution = dl.execute(id);
+				
+		// 取得した情報をセッションスコープに保存する
+		session.setAttribute("contribution", contribution);
+				
+		response.sendRedirect("detail.jsp");
 	}
 
 }

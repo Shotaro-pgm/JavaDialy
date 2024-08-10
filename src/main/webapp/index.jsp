@@ -9,8 +9,8 @@
 <body>
 <form action="login" method="post">
 <!-- 開発用ユーザ　ID：test@test.com パスワード：password -->
-ID：<input type="text" name="id"><br>
-パスワード：<input type="password" name="password"><br>
+ID：<input type="text" name="id" value="test@test.com"><br>
+パスワード：<input type="password" name="password" value="password"><br>
 <input type="submit" value="ログイン">
 </form>
 </body>
